@@ -38,7 +38,7 @@ test:
   - flake8 .
   - python manage.py makemigrations --check
   - python manage.py check --settings=$DJANGO_SETTINGS_MODULE
-  - pytest --ignore=venv --ignore=tnbooks --ds=$DJANGO_SETTINGS_MODULE --cov=partner
+  - pytest --ignore=venv --ds=$DJANGO_SETTINGS_MODULE --cov=<project_name>
   artifacts:
         paths:
             - build
