@@ -1,0 +1,46 @@
+# Official framework image. Look for the different tagged releases at:
+# https://hub.docker.com/r/library/python
+image: python:3.7.1-stretch
+
+# Pick zero or more services to be used on all builds.
+# Only needed when using a docker container to run your tests in.
+# Check out: http://docs.gitlab.com/ce/ci/docker/using_docker_images.html#what-is-a-service
+services:
+  - postgres:10
+
+variables:
+  PIPENV_CACHE_DIR: "$CI_PROJECT_DIR/.cache"
+  POSTGRES_DB: ci
+  DJANGO_SETTINGS_MODULE: settings.ci
+
+# This folder is cached between builds
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+cache:
+  key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+  paths:
+  - .cache/
+  - venv/
+
+# This is a basic example for a gem or script which doesn't use
+# services such as redis
+before_script:
+  - python -V                                   # Print out python version for debugging
+  - pip install pipenv
+  - pipenv install --deploy
+  - source $(pipenv --venv)/bin/activate
+  - pipenv check
+
+test:
+  variables:
+    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
+
+  script:
+  - flake8 .
+  - python manage.py makemigrations --check
+  - python manage.py check --settings=$DJANGO_SETTINGS_MODULE
+  - pytest --ignore=venv --ignore=tnbooks --ds=$DJANGO_SETTINGS_MODULE --cov=partner
+  artifacts:
+        paths:
+            - build
+        expire_in: 21 day
+
