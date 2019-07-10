@@ -12,13 +12,13 @@ django-tenant-schemas = "*"
 
 [packages]
 django = "*"
-install = "*"
 django-safedelete = "*"
 bumpversion = "*"
 django-tenant-schemas = "*"
+rsutils = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
 
 [pipenv]
 allow_prereleases = true

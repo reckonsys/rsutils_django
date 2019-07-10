@@ -27,6 +27,6 @@ setup(
         'Django>=2.1.5',
         'django-safedelete==0.5.1',
         'django>2',
-
+        'rsutils',
     ]
 )
