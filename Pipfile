@@ -8,12 +8,14 @@ neovim = "*"
 flake8 = "*"
 bumpversion = "*"
 twine = "*"
+django-tenant-schemas = "*"
 
 [packages]
 django = "*"
 install = "*"
 django-safedelete = "*"
 bumpversion = "*"
+django-tenant-schemas = "*"
 
 [requires]
 python_version = "3.6"

@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rsutils_django.core',
+    'rsutils_django.abstract',
+    'rsutils_django.tenant',
+    'rsutils_django.generic',
 ]
 
 MIDDLEWARE = [
